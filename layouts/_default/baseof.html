@@ -4,13 +4,51 @@
 <head>
   <title>{{ block "title" . }}{{ .Site.Params.HeadTitle | default .Site.Title }}{{ end }}</title>
   {{ partial "head.html" . }}
+
+    <style>
+        /* Make the wrapper “position: relative” so its ::before can sit behind. */
+        main.wrapper {
+          position: absolute;
+        }
+    
+        /* Create a 250 px-tall pseudo-element spanning the full width,
+           with your JPG as a background, sitting behind all other content. */
+        main.wrapper::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100px;
+          background: url("/images/Background/cool 2.3.jpg") center/cover no-repeat;
+          z-index: -1; /* sit behind everything inside main.wrapper */
+        }
+    
+        /* Push the “.content” down by 250 px so your text appears below/over the banner. */
+        .content {
+          margin-top: 0px;
+        }
+      </style>
+
+  <!-- {{ if .IsHome }}
+    Only on the homepage: override background
+    <style>
+      body {
+        /* Make sure this path matches themes/<your-theme>/static/images/Background/topographic grey.jpg */
+        background-image: url("/images/Background/top 2.png") !important;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    </style>
+  {{ end }} -->
 </head>
 
 {{ $csClass := "colorscheme-light" }}
 {{ if eq .Site.Params.colorScheme "dark" }}
-{{ $csClass = "colorscheme-dark" }}
+  {{ $csClass = "colorscheme-dark" }}
 {{ else if eq .Site.Params.colorScheme "auto" }}
-{{ $csClass = "colorscheme-auto" }}
+  {{ $csClass = "colorscheme-auto" }}
 {{ end }}
 
 <body class="preload-transitions {{ $csClass }}{{ if .Site.Params.rtl }} rtl{{ end }}">
@@ -26,110 +64,107 @@
   </main>
 
   {{ if .HasShortcode "mermaid" }}
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"
-    integrity="sha256-QdTG1YTLLTwD3b95jLqFxpQX9uYuJMNAtVZgwKX4oYU=" crossorigin="anonymous"></script>
-  <script>
-    mermaid.initialize({ startOnLoad: true });
-  </script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js"
+            integrity="sha256-QdTG1YTLLTwD3b95jLqFxpQX9uYuJMNAtVZgwKX4oYU=" crossorigin="anonymous"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
   {{ end }}
 
   {{ if .Site.Params.disableDefaultJsScripts }}
-  {{ if not .Site.Params.hideColorSchemeToggle }}
-  {{ errorf "Invalid configuration. Default JS scripts are disabled, but 'hideColorSchemeToggle' is false." }}
-  {{end}}
+    {{ if not .Site.Params.hideColorSchemeToggle }}
+      {{ errorf "Invalid configuration. Default JS scripts are disabled, but 'hideColorSchemeToggle' is false." }}
+    {{ end }}
   {{ else if hugo.IsServer }}
-  {{ $script := resources.Get "js/coder.js" }}
-  <script src="{{ $script.RelPermalink }}"></script>
+    {{ $script := resources.Get "js/coder.js" }}
+    <script src="{{ $script.RelPermalink }}"></script>
   {{ else }}
-  {{ $script := resources.Get "js/coder.js" | minify | fingerprint }}
-  <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+    {{ $script := resources.Get "js/coder.js" | minify | fingerprint }}
+    <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>
   {{ end }}
 
   {{ range .Site.Params.customJS }}
-  {{ if hugo.IsServer }}
-  {{ $script := resources.Get . }}
-  <script src="{{ $script.RelPermalink }}"></script>
-  {{ else }}
-  {{ $script := resources.Get . | minify | fingerprint }}
-  <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>
-  {{ end }}
+    {{ if hugo.IsServer }}
+      {{ $script := resources.Get . }}
+      <script src="{{ $script.RelPermalink }}"></script>
+    {{ else }}
+      {{ $script := resources.Get . | minify | fingerprint }}
+      <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+    {{ end }}
   {{ end }}
 
   {{ range .Site.Params.customRemoteJS }}
-  {{ if hugo.IsServer }}
-  {{ $script := resources.GetRemote . }}
-  <script src="{{ $script.RelPermalink }}"></script>
-  {{ else }}
-  {{ $script := resources.GetRemote . | minify | fingerprint }}
-  <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+    {{ if hugo.IsServer }}
+      {{ $script := resources.GetRemote . }}
+      <script src="{{ $script.RelPermalink }}"></script>
+    {{ else }}
+      {{ $script := resources.GetRemote . | minify | fingerprint }}
+      <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+    {{ end }}
   {{ end }}
-  {{ end }}
-
 
   {{ template "_internal/google_analytics.html" . }}
 
   {{ if and .Site.Params.fathomAnalytics .Site.Params.fathomAnalytics.siteID }}
-  {{- partial "analytics/fathom" . -}}
+    {{- partial "analytics/fathom" . -}}
   {{ end }}
 
   {{ if and .Site.Params.plausibleAnalytics .Site.Params.plausibleAnalytics.domain }}
-  {{- partial "analytics/plausible" . -}}
+    {{- partial "analytics/plausible" . -}}
   {{ end }}
 
   {{ if and .Site.Params.goatCounter .Site.Params.goatCounter.code }}
-  {{- partial "analytics/goatcounter" . -}}
+    {{- partial "analytics/goatcounter" . -}}
   {{ end }}
 
   {{ if and .Site.Params.cloudflare .Site.Params.cloudflare.token }}
-  {{- partial "analytics/cloudflare" . -}}
+    {{- partial "analytics/cloudflare" . -}}
   {{ end }}
 
   {{ if and .Site.Params.baidu .Site.Params.baidu.token }}
-  {{- partial "analytics/baidu" . -}}
+    {{- partial "analytics/baidu" . -}}
   {{ end }}
 
   {{ if and .Site.Params.wideAngleAnalytics .Site.Params.wideAngleAnalytics.siteID }}
-  {{- partial "analytics/wideangle" . -}}
+    {{- partial "analytics/wideangle" . -}}
   {{ end }}
 
   {{ if and .Site.Params.matomo .Site.Params.matomo.serverURL }}
-  {{- partial "analytics/matomo" . -}}
+    {{- partial "analytics/matomo" . -}}
   {{ end }}
 
   {{ if and .Site.Params.googleTagManager .Site.Params.googleTagManager.id }}
-  {{- partial "analytics/googletagmanager" . -}}
+    {{- partial "analytics/googletagmanager" . -}}
   {{ end }}
 
   {{ if and .Site.Params.applicationInsights .Site.Params.applicationInsights.connectionString }}
-  {{- partial "analytics/applicationinsights" . -}}
+    {{- partial "analytics/applicationinsights" . -}}
   {{ end }}
 
   {{ if and .Site.Params.microAnalytics .Site.Params.microAnalytics.id }}
-  {{- partial "analytics/microanalyticsio" . -}}
+    {{- partial "analytics/microanalyticsio" . -}}
   {{ end }}
 
   {{ if and .Site.Params.onedollarstats .Site.Params.onedollarstats.id }}
-  {{- partial "analytics/onedollarstats" . -}}
+    {{- partial "analytics/onedollarstats" . -}}
   {{ end }}
 
-  {{ if .Site.Params.vercelAnalytics}}
-  {{- partial "analytics/vercel" . -}}
+  {{ if .Site.Params.vercelAnalytics }}
+    {{- partial "analytics/vercel" . -}}
   {{ end }}
 
   {{ if and .Site.Params.yandexMetrika .Site.Params.yandexMetrika.id }}
-  {{- partial "analytics/yandex-metrika" . -}}
+    {{- partial "analytics/yandex-metrika" . -}}
   {{ end }}
 
   {{ if and .Site.Params.umami .Site.Params.umami.siteID }}
-  {{- partial "analytics/umami" . -}}
+    {{- partial "analytics/umami" . -}}
   {{ end }}
 
   {{ if and .Site.Params.pirsch .Site.Params.pirsch.code }}
-  {{- partial "analytics/pirsch" . -}}
+    {{- partial "analytics/pirsch" . -}}
   {{ end }}
 
   {{ if and .Site.Params.clicky .Site.Params.clicky.id }}
-  {{- partial "analytics/clicky" . -}}
+    {{- partial "analytics/clicky" . -}}
   {{ end }}
 
   {{- partial "body/extensions" . -}}

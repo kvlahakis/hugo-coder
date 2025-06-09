@@ -1,4 +1,4 @@
-{{ with .Site.Params.social }}
+<!-- {{ with .Site.Params.social }}
 <ul>
   {{ range sort . "weight" }}
     {{ if .icon }}
@@ -14,4 +14,45 @@
     {{ end }}
   {{ end }}
 </ul>
-{{ end }}
+{{ end }} -->
+
+
+<!-- \\ -->
+
+
+<!-- <ul class="social-icons">
+  {{ range .Site.Params.social }}
+    <li>
+      {{ if eq .name "Gmail" }}
+        <a href="{{ .url }}" target="_blank">
+          <img src="/images/new icon/gmail icon.svg" alt="Gmail" class="social-icon" />
+        </a>
+      {{ else }}
+        <a href="{{ .url }}" target="_blank">
+          <i class="{{ .icon }}"></i>
+        </a>
+      {{ end }}
+    </li>
+  {{ end }}
+</ul> -->
+
+
+<!-- // -->
+
+<ul class="social-icons">
+  {{ range .Site.Params.social }}
+    <li>
+      {{ if eq .name "Gmail" }}
+        <!-- Custom Gmail Icon -->
+        <a href="{{ .url }}" target="_blank">
+          <img src="/images/new icon/gmail icon.svg" alt="Gmail" class="social-icon" />
+        </a>
+      {{ else }}
+        <a href="{{ .url }}" target="_blank">
+          <i class="{{ .icon }}"></i>
+        </a>
+      {{ end }}
+    </li>
+  {{ end }}
+</ul>
+

@@ -1,21 +1,27 @@
 .navigation {
+  margin-top: 2rem;
   height: 6rem;
   width: 100%;
 
+  /* ── EDIT 1 & 2: make each label a tiny black box ── */
   a,
   span {
-    display: inline;
-    font-size: 1.7rem;
+    display: inline-block;      /* was “inline” */
+    font-size: 2rem;
     font-family: $font-family;
     font-weight: 600;
-    color: $fg-color;
+    color: white;
+
+    background: #000;           /* new black pill */
+    padding: 0.25rem 0.75rem;   /* adjust to taste */
+    border-radius: 0.25rem;     /* soften corners */
   }
 
   a {
-
     &:hover,
     &:focus {
-      color: $link-color;
+      color: $link-color;       /* keep hover colour change */
+      /* background stays black */
     }
   }
 
