@@ -6,7 +6,7 @@
   /* ── EDIT 1 & 2: make each label a tiny black box ── */
   a,
   span {
-    display: inline-block;      /* was “inline” */
+    display: inline-block;      /* was "inline" */
     font-size: 2rem;
     font-family: $font-family;
     font-weight: 600;
@@ -46,7 +46,7 @@
       padding: 0;
       max-height: 0;
       width: 100%;
-      background-color: $bg-color;
+      background-color: #ffffff;
       border-top: solid 2px $alt-bg-color;
       border-bottom: solid 2px $alt-bg-color;
       transition: opacity 0.25s, max-height 0.15s linear;
@@ -74,6 +74,26 @@
       }
     }
 
+    /* ── Mobile: strip black pill from dropdown links ── */
+    @media only screen and (max-width: 768px) {
+      .navigation-item {
+        a,
+        span {
+          background: none;
+          color: #212121;
+          padding: 0;
+          border-radius: 0;
+        }
+
+        a {
+          &:hover,
+          &:focus {
+            color: $link-color;
+          }
+        }
+      }
+    }
+
     .separator {
       @media only screen and (max-width: 768px) {
         display: none;
@@ -82,7 +102,7 @@
 
     .menu-separator {
       @media only screen and (max-width: 768px) {
-        border-top: 2px solid $fg-color;
+        border-top: 2px solid #cccccc;
         margin: 0 8rem;
 
         span {
@@ -137,7 +157,6 @@
     }
 
     i {
-
       &:hover,
       &:focus {
         color: $alt-fg-color;

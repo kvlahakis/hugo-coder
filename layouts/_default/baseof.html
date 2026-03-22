@@ -6,7 +6,7 @@
   {{ partial "head.html" . }}
 
     <style>
-        /* Make the wrapper “position: relative” so its ::before can sit behind. */
+        /* Make the wrapper "position: relative" so its ::before can sit behind. */
         main.wrapper {
           position: absolute;
         }
@@ -24,9 +24,17 @@
           z-index: -1; /* sit behind everything inside main.wrapper */
         }
     
-        /* Push the “.content” down by 250 px so your text appears below/over the banner. */
+        /* Push the ".content" down by 250 px so your text appears below/over the banner. */
         .content {
           margin-top: 0px;
+        }
+
+        /* On mobile, remove the banner pseudo-element so it doesn't create
+           a dark backdrop behind the section h1 headers. */
+        @media only screen and (max-width: 768px) {
+          main.wrapper::before {
+            display: none;
+          }
         }
       </style>
 
