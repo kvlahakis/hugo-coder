@@ -112,6 +112,16 @@
     }
   }
 
+  /* ── Mobile: strip black pill from the site title link ── */
+  @media only screen and (max-width: 768px) {
+    .navigation-title {
+      background: none;
+      color: $fg-color;
+      padding: 0;
+      border-radius: 0;
+    }
+  }
+
   #dark-mode-toggle {
     margin: 1.7rem 0;
     font-size: 2.4rem;
