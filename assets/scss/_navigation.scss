@@ -64,21 +64,7 @@
         a,
         span {
           line-height: 5rem;
-        }
-      }
-
-      a,
-      span {
-        margin-left: 1rem;
-        margin-right: 1rem;
-      }
-    }
-
-    /* ── Mobile: strip black pill from dropdown links ── */
-    @media only screen and (max-width: 768px) {
-      .navigation-item {
-        a,
-        span {
+          /* Strip black pill from dropdown items on mobile */
           background: none;
           color: #212121;
           padding: 0;
@@ -91,6 +77,12 @@
             color: $link-color;
           }
         }
+      }
+
+      a,
+      span {
+        margin-left: 1rem;
+        margin-right: 1rem;
       }
     }
 
@@ -109,16 +101,6 @@
           display: none;
         }
       }
-    }
-  }
-
-  /* ── Mobile: strip black pill from the site title link ── */
-  @media only screen and (max-width: 768px) {
-    .navigation-title {
-      background: none;
-      color: $fg-color;
-      padding: 0;
-      border-radius: 0;
     }
   }
 

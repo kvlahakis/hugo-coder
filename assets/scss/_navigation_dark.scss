@@ -7,7 +7,6 @@
     }
 
     a {
-
       &:hover,
       &:focus {
         color: $link-color-dark;
@@ -19,6 +18,16 @@
         background-color: $bg-color-dark;
         border-top: solid 2px $alt-bg-color-dark;
         border-bottom: solid 2px $alt-bg-color-dark;
+      }
+
+      .navigation-item {
+        @media only screen and (max-width: 768px) {
+          a,
+          span {
+            /* Keep links dark-on-white even in dark mode */
+            color: #212121;
+          }
+        }
       }
 
       .menu-separator {
@@ -47,7 +56,6 @@
 
     .menu-button {
       i {
-
         &:hover,
         &:focus {
           color: $alt-fg-color-dark;
@@ -60,28 +68,11 @@
 body.colorscheme-dark {
   @include navigation_dark();
 
-  /* Force white dropdown on mobile regardless of dark mode */
   @media only screen and (max-width: 768px) {
     .navigation .navigation-list {
-      background-color: #ffffff !important;
-      border-top-color: #e0e0e0 !important;
-      border-bottom-color: #e0e0e0 !important;
-    }
-
-    .navigation .navigation-list .navigation-item a,
-    .navigation .navigation-list .navigation-item span {
-      color: #212121 !important;
-    }
-
-    .navigation .navigation-list .navigation-item a {
-      &:hover,
-      &:focus {
-        color: #1565c0 !important;
-      }
-    }
-
-    .navigation .navigation-list .menu-separator {
-      border-top-color: #cccccc !important;
+      background-color: #ffffff;
+      border-top-color: #e0e0e0;
+      border-bottom-color: #e0e0e0;
     }
   }
 }
@@ -91,28 +82,11 @@ body.colorscheme-auto {
     @include navigation_dark();
   }
 
-  /* Force white dropdown on mobile regardless of auto dark mode */
   @media only screen and (max-width: 768px) {
     .navigation .navigation-list {
-      background-color: #ffffff !important;
-      border-top-color: #e0e0e0 !important;
-      border-bottom-color: #e0e0e0 !important;
-    }
-
-    .navigation .navigation-list .navigation-item a,
-    .navigation .navigation-list .navigation-item span {
-      color: #212121 !important;
-    }
-
-    .navigation .navigation-list .navigation-item a {
-      &:hover,
-      &:focus {
-        color: #1565c0 !important;
-      }
-    }
-
-    .navigation .navigation-list .menu-separator {
-      border-top-color: #cccccc !important;
+      background-color: #ffffff;
+      border-top-color: #e0e0e0;
+      border-bottom-color: #e0e0e0;
     }
   }
 }
